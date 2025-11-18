@@ -464,17 +464,6 @@ export function CreateMedicalRecordForm({
             console.log('✅ [QR Payment] Medical record created:', medicalRecordId)
             setCreatedMedicalRecordId(medicalRecordId)
 
-
-            // Step 7: Print invoice
-            console.log('🖨️ [QR Payment] Printing invoice...')
-            const htmlContent = await exportInvoiceHtml(medicalRecordId)
-
-            const printWindow = window.open('', '_blank')
-            if (printWindow) {
-              printWindow.document.write(htmlContent)
-              printWindow.document.close()
-            }
-
             // Cleanup
             setTimeout(() => {
               unsubscribe()
