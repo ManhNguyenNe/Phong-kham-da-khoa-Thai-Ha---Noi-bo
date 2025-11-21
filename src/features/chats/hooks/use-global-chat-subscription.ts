@@ -50,7 +50,7 @@ export function useGlobalChatSubscription() {
 
   // Callback for handling new messages
   const handleNewMessage = useCallback(
-    (conversationId: string, message: Message) => {
+    (conversationId: number, message: Message) => {
       console.log(`🌍 [Global] New message from conversation ${conversationId}`)
 
       // If the user is currently viewing this conversation, do NOT add unread notification

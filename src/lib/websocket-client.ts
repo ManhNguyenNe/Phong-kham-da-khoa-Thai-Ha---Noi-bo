@@ -151,7 +151,7 @@ class WebSocketClient {
      * Supports multiple callbacks for the same topic
      */
     subscribeToChatConversation(
-        conversationId: string,
+        conversationId: number,
         callback: ChatMessageCallback
     ): () => void {
         const topic = `/topic/chat/${conversationId}`

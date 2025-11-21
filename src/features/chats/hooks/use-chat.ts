@@ -20,7 +20,7 @@ export function useConversations() {
   })
 }
 
-export function useMessages(conversationId: string | null) {
+export function useMessages(conversationId: number | null) {
   return useQuery({
     queryKey: ['messages', conversationId],
     queryFn: () => fetchMessages(conversationId!),
@@ -39,7 +39,7 @@ export function useLoadMoreMessages() {
       conversationId,
       beforeId,
     }: {
-      conversationId: string
+      conversationId: number
       beforeId: number
     }) => fetchMoreMessages(conversationId, beforeId),
     onSuccess: (data, variables) => {
@@ -128,7 +128,7 @@ export function useSendMessage() {
 }
 
 export function useChatSubscription(
-  conversationId: string | null,
+  conversationId: number | null,
   enabled: boolean,
   onMessageReceived?: (message: Message) => void
 ) {
@@ -234,8 +234,8 @@ export function useChatSubscription(
  */
 export function useAllConversationsSubscription(
   conversations: Conversation[] | undefined,
-  currentConversationId: string | null,
-  onNewMessage: (conversationId: string, message: Message) => void
+  currentConversationId: number | null,
+  onNewMessage: (conversationId: number, message: Message) => void
 ) {
   const queryClient = useQueryClient()
   const callbackRef = useRef(onNewMessage)

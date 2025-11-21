@@ -88,7 +88,7 @@ export async function fetchConversations(): Promise<Conversation[]> {
  * GET /api/conversations/{id}/messages
  */
 export async function fetchMessages(
-  conversationId: string
+  conversationId: number
 ): Promise<MessageHistoryResponse> {
   try {
     const response = await get<ApiResponse<MessageHistoryResponse>>(
@@ -127,7 +127,7 @@ export async function fetchMessages(
  * GET /api/conversations/{id}/messages/more?beforeId={messageId}
  */
 export async function fetchMoreMessages(
-  conversationId: string,
+  conversationId: number,
   beforeId: number
 ): Promise<LoadMoreMessagesResponse> {
   try {

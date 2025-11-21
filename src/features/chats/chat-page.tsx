@@ -267,7 +267,7 @@ export function Chats() {
 
     sendMessage(
       {
-        conversationId: parseInt(selectedConversation.id),
+        conversationId: selectedConversation.id,
         senderId: user.id,
         message: messageInput.trim(),
         urls: imageUrls,

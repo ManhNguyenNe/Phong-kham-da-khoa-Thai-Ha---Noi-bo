@@ -2,17 +2,17 @@ import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
 interface UnreadMessage {
-    conversationId: string
+    conversationId: number
     count: number
     lastMessageTime: string
 }
 
 interface UnreadStore {
-    unreadMap: Map<string, UnreadMessage>
-    addUnreadMessage: (conversationId: string, messageTime: string) => void
-    setUnreadCount: (conversationId: string, count: number, messageTime?: string) => void
-    clearUnread: (conversationId: string) => void
-    getUnreadCount: (conversationId: string) => number
+    unreadMap: Map<number, UnreadMessage>
+    addUnreadMessage: (conversationId: number, messageTime: string) => void
+    setUnreadCount: (conversationId: number, count: number, messageTime?: string) => void
+    clearUnread: (conversationId: number) => void
+    getUnreadCount: (conversationId: number) => number
     getTotalUnread: () => number
 }
 
@@ -21,7 +21,7 @@ export const useUnreadStore = create<UnreadStore>()(
         (set, get) => ({
             unreadMap: new Map(),
 
-            addUnreadMessage: (conversationId: string, messageTime: string) => {
+            addUnreadMessage: (conversationId: number, messageTime: string) => {
                 set((state) => {
                     const newMap = new Map(state.unreadMap)
                     const existing = newMap.get(conversationId)
@@ -44,7 +44,7 @@ export const useUnreadStore = create<UnreadStore>()(
                 })
             },
 
-            setUnreadCount: (conversationId: string, count: number, messageTime?: string) => {
+            setUnreadCount: (conversationId: number, count: number, messageTime?: string) => {
                 set((state) => {
                     const newMap = new Map(state.unreadMap)
 
@@ -63,7 +63,7 @@ export const useUnreadStore = create<UnreadStore>()(
                 })
             },
 
-            clearUnread: (conversationId: string) => {
+            clearUnread: (conversationId: number) => {
                 set((state) => {
                     const newMap = new Map(state.unreadMap)
                     newMap.delete(conversationId)
@@ -71,7 +71,7 @@ export const useUnreadStore = create<UnreadStore>()(
                 })
             },
 
-            getUnreadCount: (conversationId: string) => {
+            getUnreadCount: (conversationId: number) => {
                 return get().unreadMap.get(conversationId)?.count || 0
             },
 
@@ -91,9 +91,9 @@ export const useUnreadStore = create<UnreadStore>()(
             }),
             merge: (persistedState: any, currentState) => {
                 // Chuyển array về Map, nếu không có thì trả về Map rỗng
-                const map = new Map<string, UnreadMessage>(
+                const map = new Map<number, UnreadMessage>(
                     Array.isArray(persistedState?.unreadMap)
-                        ? persistedState.unreadMap as [string, UnreadMessage][]
+                        ? persistedState.unreadMap as [number, UnreadMessage][]
                         : []
                 )
                 return {
