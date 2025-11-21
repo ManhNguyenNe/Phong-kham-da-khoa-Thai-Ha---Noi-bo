@@ -19,7 +19,7 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 function isConversation(value: unknown): value is Conversation {
   if (!isRecord(value)) return false
   return (
-    typeof value.id === 'string' &&
+    typeof value.id === 'number' &&
     typeof value.patientName === 'string' &&
     typeof value.responder === 'string' &&
     typeof value.newMessage === 'boolean'
@@ -55,14 +55,23 @@ export async function fetchConversations(): Promise<Conversation[]> {
 
     // Handle direct array response
     if (Array.isArray(data)) {
-      return data.filter(isConversation)
+      console.log('🔵 [fetchConversations] Direct array response, length:', data.length)
+      const filtered = data.filter(isConversation)
+      console.log('🔵 [fetchConversations] After filter:', filtered.length)
+      return filtered
     }
 
     // Handle wrapped response {data: [...]}
     if (isRecord(data)) {
+      console.log('🔵 [fetchConversations] Wrapped response, checking data.data...')
       const rawData = data.data
+      console.log('🔵 [fetchConversations] rawData is array?', Array.isArray(rawData))
       if (Array.isArray(rawData)) {
-        return rawData.filter(isConversation)
+        console.log('🔵 [fetchConversations] rawData length:', rawData.length)
+        console.log('🔵 [fetchConversations] First item:', rawData[0])
+        const filtered = rawData.filter(isConversation)
+        console.log('🔵 [fetchConversations] After filter:', filtered.length)
+        return filtered
       }
     }
 

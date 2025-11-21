@@ -25,7 +25,7 @@ export interface Message {
  * Conversation from API
  */
 export interface Conversation {
-  id: string
+  id: number
   patientName: string // e.g., "Phạm Ngọc Tiến - 0395527082"
   responder: ResponderType
   newMessage: boolean
