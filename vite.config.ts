@@ -23,4 +23,10 @@ export default defineConfig({
     // Fix for sockjs-client: Add global polyfill
     global: 'globalThis',
   },
+  server: {
+    allowedHosts: [
+      '.ngrok-free.app',
+      'submaxillary-unsanguinely-vivienne.ngrok-free.dev'
+    ]
+  }
 })

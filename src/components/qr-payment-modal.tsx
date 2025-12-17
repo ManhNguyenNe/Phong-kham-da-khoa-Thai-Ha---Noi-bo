@@ -75,6 +75,7 @@ export function QRPaymentModal({
             <Dialog open={open} onOpenChange={(isOpen) => !isOpen && handleCloseAttempt()}>
                 <DialogContent
                     className="sm:max-w-md"
+                    showCloseButton={false}
                     onPointerDownOutside={(e) => {
                         if (!paymentSuccess) {
                             e.preventDefault()
